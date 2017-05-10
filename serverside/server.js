@@ -15,7 +15,7 @@ app.use(bodyParser.json());
 var routes = require('./api/routes/presentation-routes');
 routes(app);
 
-app.use(express.static('front'));
+app.use(express.static('../public'));
 
 // 404 handling
 app.use(function (req, res, next) {

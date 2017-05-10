@@ -13,7 +13,8 @@ services:
     ports:
       - 3000:3000
     volumes:
-      - .:/var/app
+      - ./serverside:/var/app
+      - ./public:/var/public
       - /var/app/node_modules
     links:
       - db
