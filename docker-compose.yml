@@ -3,7 +3,7 @@ version: '3'
 services:
   web:
     build:
-      context: .
+      context: ./serverside
       dockerfile: Dockerfile.development
       args:
         - APP_HOME=/var/app
@@ -14,7 +14,7 @@ services:
       - 3000:3000
     volumes:
       - ./serverside:/var/app
-      - ./public:/var/public
+      - ./clientside/dist:/var/public
       - /var/app/node_modules
     links:
       - db
@@ -29,6 +29,20 @@ services:
   #     - db:mongo
   #   depends_on:
   #     - db
+
+  client:
+    build:
+      context: ./clientside
+      dockerfile: Dockerfile
+      args:
+        - APP_HOME=/var/clientside
+    command: npm start
+    ports:
+      - 8080:8080
+    volumes:
+      # - ./public:/var/public
+      - ./clientside:/var/clientside
+      # - /var/app/node_modules
 
   db:
     image: mongo:3.0
